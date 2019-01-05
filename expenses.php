@@ -24,6 +24,9 @@ table{
       table-layout: fixed;
 
 }
+a{
+  color: black;
+}
 td,th{
   font-size: auto;
   text-align: center;
@@ -64,14 +67,14 @@ td,th{
     <img style="float: left;" height="50" src="/LoginApp/public/logo.jpg">
     </div>
 <div class="container">
-<h2 class="page-header">Assets <a class="text-muted" href="/LoginApp/staff.php">Staff</a><a class="text-muted" href="/LoginApp/expenses.php"> Expenses</a></h2>
+<h2 class="page-header"><a class="text-muted" href="/LoginApp/dash.php">Assets </a><a class="text-muted" href="/LoginApp/staff.php">Staff</a> Expenses</h2>
 <div class="cardy">
 <input class="SearchBar" type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in an Item Name">
 <div class="table-wrapper">
 
 <?php 
 
-$sql="SELECT * FROM Items ORDER BY  STATUS DESC";
+$sql="SELECT * FROM Expenses ORDER BY status DESC";
 
 $result = mysqli_query($db, $sql);
 
@@ -81,13 +84,11 @@ echo "<table id='itemTable' class='table table-hover'>
 
 <tr>
 
-<th>Type</th>
+<th>User</th>
 
-<th>Id</th>
+<th>Expense</th>
 
-<th>Location</th>
-
-<th>Date</th>
+<th>Amount</th>
 
 <th>Status</th>
 
@@ -103,22 +104,17 @@ while($row = mysqli_fetch_array($result))
 
   echo "<td>" . $row[0] . "</td>";
 
-  echo "<td>" . $row[1] . "</td>";
-
   echo "<td>" . $row[2] . "</td>";
 
   echo "<td>" . $row[3] . "</td>";
-  if(!(strcmp($row[4],"Maintenance")))
+
+  if(!(strcmp($row[4],"Pending")))
   {
-    echo "<td class=maintenance_td>" . $row[4] ."</td>";
-  }
-  else if(!(strcmp($row[4],"Inactive")))
-  {
-    echo "<td class=inactive_td>" . $row[4] ."</td>";
+    echo "<td id=\"$row[1]\" class=maintenance_td><a onClick=approveExpense(\"$row[1]\")>" . $row[4] ."<a></td>";
   }
   else
   {
-    echo "<td class=active_td>" . $row[4] . "</td>";
+    echo "<td id=\"$row[1]\" class=active_td><a onClick=approveExpense(\"$row[1]\")>" . $row[4] . "<a></td>";
   }
   echo "</tr>";
 
@@ -153,13 +149,33 @@ mysqli_close($con);
 
   // Loop through all list items, and hide those who don't match the search query
   for (i = 1; i < li.length; i++) {
-    a = li[i].getElementsByTagName("td")[1];
+    a = li[i].getElementsByTagName("td")[0];
     if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
       li[i].style.display = "";
     } else {
       li[i].style.display = "none";
     }
   }
+}
+function approveExpense(str) {
+  console.log(str);
+  //document.getElementById(str).innerHTML="assa";
+  var xhttp;
+  if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+            console.log("XMLHttpRequest Done");
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById(str).innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","approve.php?q="+str,true);
+        xmlhttp.send();
 }
 </script>
 </html>

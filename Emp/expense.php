@@ -63,37 +63,36 @@ else {
       <img style="float: left;" height="50" src="/LoginApp/public/logo.jpg">
     </div>
     <div class="container">
-      <h2 class="page-header"><a class="text-muted" href="/LoginApp/Emp/dash.php">new</a> <a class="text-muted" href="/LoginApp/Emp/update.php">update</a> <a class="text-muted" href="/LoginApp/Emp/delete.php">delete</a> ticket <a class="text-muted" href="/LoginApp/Emp/expense.php"> expense </a></h2>
+      <h2 class="page-header"><a class="text-muted" href="/LoginApp/Emp/dash.php">new</a> <a class="text-muted" href="/LoginApp/Emp/update.php">update</a><a class="text-muted" href="/LoginApp/Emp/delete.php"> delete</a><a class="text-muted" href="/LoginApp/Emp/ticket.php"> ticket </a> expense</h2>
       <div class="cardy">
           
-      <form name="myform" method="post" id="f1" action="/LoginApp/Emp/ticket.php">
-        <div class="controls">
-            <fieldset class="input-group">
-                <input type="file" accept="image/*" capture="camera"/>
-            </fieldset>
+      <form name="myform" method="post" id="f1" action="/LoginApp/Emp/expense.php">
+      <div class="form-group">
+              <label>Expense</label>
+          <input type="text" class="form-control" name="expense" placeholder="Enter Expense">
         </div>
-        <div id="result_strip">
-            <ul  class="thumbnails"></ul>
+        <div class="form-group">
+            <label>Amount</label>
+           <input type="number" class="form-control" name="amount" step="0.01">
         </div>
-      <input style="visibility: hidden;" id="x" name="id"><br>
-      <input style="text" name="ticket">
-      <a class="btn btn-default" href="javascript: openQRCamera()">
-      Raise Ticket
-      </a>      
+        <button name="submit" type="submit" class="btn btn-default" value="submit">Submit</button>
     </form>
     <div class="table-wrapper">
 
 <?php 
-if(($_POST['id']) && ($_POST['ticket']))
+$id = $_SESSION['username'];
+if(($_POST['expense']) && ($_POST['amount']))
 {
-  $idItem = strip_tags($_POST['id']);
-  $ticket = strip_tags($_POST['ticket']);
 
-  $sql="INSERT INTO Ticket(id,ticket) VALUES ('$idItem','$ticket')";
+  $expense = strip_tags($_POST['expense']);
+  $amount =  strip_tags($_POST['amount']);
+  $status = "Pending";
+  $expenseID = uniqid();
+  $sql="INSERT INTO Expenses(id,expenseID,expense,amt,status) VALUES ('$id','$expenseID','$expense','$amount','$status')";
 
   $result = mysqli_query($db, $sql);
-}
-  $sql="SELECT * FROM Ticket WHERE id='$idItem'";
+ }
+  $sql="SELECT * FROM Expenses WHERE id='$id'";
 
   $result = mysqli_query($db, $sql);
 
@@ -103,9 +102,13 @@ if(($_POST['id']) && ($_POST['ticket']))
 
   <tr>
 
-  <th>ID</th>
+  <th>Employee</th>
 
-  <th>Ticket</th>
+  <th>Expense</th>
+
+  <th>Amount</th>
+
+  <th>Status</th>
   </tr>
   </thead>";
 
@@ -118,8 +121,11 @@ if(($_POST['id']) && ($_POST['ticket']))
 
     echo "<td>" . $row[0] . "</td>";
 
-    echo "<td>" . $row[1] . "</td>";
+    echo "<td>" . $row[2] . "</td>";
 
+    echo "<td>" . $row[3] . "</td>";
+
+    echo "<td>" . $row[4] . "</td>";
     echo "</tr>";
 
     }
@@ -137,21 +143,5 @@ if(($_POST['id']) && ($_POST['ticket']))
     <footer class="footer">
       <p>&copy; BPO Convergence Ltd.</p>
     </footer>
-  </body>
-  <script src="/LoginApp/public/js/qrcode.js"></script>
-  <script src="/LoginApp/public/js/jquery-3.3.1.js"></script>
-<script src="qr_packed.js"></script>
-<script src="quagga.js" type="text/javascript"></script>
-<script src="file_input.js" type="text/javascript"></script>
-  <script type="text/javascript">
-
-  function openQRCamera() {
-if(document.myform.onsubmit && !document.myform.onsubmit())
-          {
-              return;
-          }
-          document.myform.submit();
-}
-
-  </script>
+</body>
 </html>

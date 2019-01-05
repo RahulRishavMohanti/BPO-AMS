@@ -73,7 +73,7 @@ if($_POST['submit']) {
     </div>
     <div class="container">
 
-      <h2 class="page-header">new <a class="text-muted" href="/LoginApp/Emp/update.php">update</a>  <a class="text-muted" href="/LoginApp/Emp/delete.php">delete</a> <a class="text-muted" href="/LoginApp/Emp/ticket.php">ticket</a></h2>
+      <h2 class="page-header">new <a class="text-muted" href="/LoginApp/Emp/update.php">update</a>  <a class="text-muted" href="/LoginApp/Emp/delete.php">delete</a> <a class="text-muted" href="/LoginApp/Emp/ticket.php">ticket</a> <a class="text-muted" href="/LoginApp/Emp/expense.php"> expense </a></h2>
       <div class="row">
           <div class="col-lg-12">
             <?php if($message)

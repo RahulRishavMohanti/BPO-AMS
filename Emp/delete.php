@@ -63,7 +63,7 @@ else {
       <img style="float: left;" height="50" src="/LoginApp/public/logo.jpg">
     </div>
     <div class="container">
-      <h2 class="page-header"><a class="text-muted" href="/LoginApp/Emp/dash.php">new</a> <a class="text-muted" href="/LoginApp/Emp/update.php">update</a> delete <a class="text-muted" href="/LoginApp/Emp/ticket.php">ticket</a></h2>
+      <h2 class="page-header"><a class="text-muted" href="/LoginApp/Emp/dash.php">new</a> <a class="text-muted" href="/LoginApp/Emp/update.php">update</a> delete <a class="text-muted" href="/LoginApp/Emp/ticket.php">ticket</a> <a class="text-muted" href="/LoginApp/Emp/expense.php"> expense </a></h2>
       <div class="cardy">
           
       <form name="myform" method="post" id="f1" action="/LoginApp/Emp/delete.php">
