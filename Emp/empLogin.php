@@ -3,7 +3,7 @@ session_start();
 
 if($_POST['submit']) {
 	//include_once('/LoginApp/connection.php');
-	$db = mysqli_connect("localhost", "root", "root", "loginapp",8889) or die ("Failed to connect");
+  include_once('connection.php');
 
 	$username = strip_tags($_POST['username']);
 	$password = strip_tags($_POST['password']);
@@ -58,6 +58,9 @@ body{
     margin-top: 5%;
     margin-bottom: : 5%;
 
+  }
+  .page-header{
+  	margin: 0;
   }
 
   .cardy{
@@ -123,7 +126,7 @@ body{
 			    	<label>Password</label>
 					<input type="password" class="form-control" name="password" placeholder="Enter password here">
 				</div>
-				<button name="submit" type="submit" class="btn btn-default" value="submit">Submit</button>
+				<button style="width: 100%;" name="submit" type="submit" class="btn btn-success" value="submit">Submit</button>
 			</form>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-$db = mysqli_connect("localhost", "root", "root", "loginapp",8889) or die ("Failed to connect");
+  include_once('connection.php');
 if (isset($_SESSION['username'])){
   $username = $_SESSION['username'];
 }
@@ -16,7 +16,7 @@ if($_POST['submit']) {
   else
   {
     $ItemType = strip_tags($_POST['ItemType']);
-    $ItemID = strip_tags($_POST['ItemID']);
+    $ItemID = uniqid();
     $Location = strip_tags($_POST['Location']);
     $Date = strip_tags($_POST['Date']);
     $status = "Active";
@@ -106,10 +106,6 @@ if($_POST['submit']) {
               <option>Kolkata</option>
               <option>Lucknow</option>
             </select>
-          </div>
-          <div class="form-group">
-            <label for="ItemID">Item ID</label>
-            <input type="text" class="form-control" id="text" name="ItemID" placeholder="Enter Item ID">
           </div>
           <div class="form-group">
             <label for="Date">Date</label>

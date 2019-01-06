@@ -1,40 +1,3 @@
-<?php
-session_start();
-
-if($_POST['submit']) {
-	include_once('connection.php');
-	$username = strip_tags($_POST['username']);
-	$password = strip_tags($_POST['password']);
-	$password = md5($password);
-
-	$sql = "SELECT UserName,Password FROM Users where UserName = '$username' LIMIT 1";
-	$query = mysqli_query($db, $sql);
-	if($query) {
-		$row = mysqli_fetch_row($query);
-		$dbUserName = $row[0];
-		$dbPassword = $row[1];
-	}
-//	echo "$dbUserName $dbPassword";
-	if($username == $dbUserName && $password == $dbPassword) {
-		$_SESSION['username'] = $username;
-		header('Location: dash.php');
-	}
-	else {
-		$errorm = "Incorrect Credentials";
-		//echo "<div class='col-lg-12'><div class='alert alert-danger'>Incorrect credentials</div></div>";
-	}
-
-}
-else if($_SESSION['success'])
-{
-	$message="Logged Out";
-	unset($_SESSION['success']);
-
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,17 +21,13 @@ body{
 
   box-shadow: 0px 0px 0px ;
   }
-  .page-header{
-  	margin: 0;
-  }
-
 
   .cardy{
     max-width:500px;
     right: 0;
     left: auto;
     background: white;
-    padding: 50px;
+    padding:2px 10px 30px 10px;
     border-radius: 10px;
     margin:auto;
     color: black;
@@ -117,18 +76,9 @@ body{
         	</div>
     	</div>
 		<div class="cardy">
-			<h2 align="center" class="page-header">Login</h2>
-			<form method="post" action="index1.php">
-		  		<div class="form-group">
-		  	    	<label>Username</label>
-					<input type="text" class="form-control" name = "username" placeholder="Enter username">
-				</div>
-				<div class="form-group">
-			    	<label>Password</label>
-					<input type="password" class="form-control" name="password" placeholder="Enter password here">
-				</div>
-				<button style="width: 100%;" name="submit" type="submit" class="btn btn-success" value="submit">Submit</button>
-			</form>
+			<h2 align="center" class="page-header">Select Login</h2>
+			<a style="width:49%;" class="btn btn-primary btn-large" href ="Emp/empLogin.php"> Employee Login</a>
+			<a style="width:49%; float: right;" class="btn btn-primary btn-large" href ="index1.php"> Manager Login</a>
 		</div>
 	</div>
     <div class="footer">

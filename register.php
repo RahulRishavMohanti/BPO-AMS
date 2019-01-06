@@ -4,7 +4,7 @@
 		$username = strip_tags($_POST['username']);
 		$password = strip_tags($_POST['password']);
 		$password = md5($password);
-		$db = mysqli_connect("localhost", "root", "root", "loginapp",8889) or die ("Failed to connect");
+  		include_once('connection.php');
 		$query = "INSERT INTO Employees(username,password) VALUES('$username', '$password')";
 		$result = mysqli_query($db,$query);
 		if($result) {

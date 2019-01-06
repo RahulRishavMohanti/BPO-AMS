@@ -1,6 +1,6 @@
 <?php
 session_start();
-  $db = mysqli_connect("localhost", "root", "root", "loginapp",8889) or die ("Failed to connect");
+  include_once('connection.php');
 if (isset($_SESSION['username'])){
   $username = $_SESSION['username'];
 }
@@ -73,7 +73,7 @@ else {
         </div>
         <div class="form-group">
             <label>Amount</label>
-           <input type="number" class="form-control" name="amount" step="0.01">
+           <input type="number" class="form-control" name="amount" step="0.01" placeholder="Enter Amount">
         </div>
         <button name="submit" type="submit" class="btn btn-default" value="submit">Submit</button>
     </form>

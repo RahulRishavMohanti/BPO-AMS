@@ -47,7 +47,7 @@ td,th{
     </div>
 
 <div class="container">
-<h2  class="page-header"><a class="text-muted" href="/LoginApp/dash.php">Assets</a> Staff <a class="text-muted" href="/LoginApp/location.php">Location</a></h2>
+<h2  class="page-header"><a class="text-muted" href="/LoginApp/dash.php">Assets</a> Staff <a class="text-muted" href="/LoginApp/expenses.php">Expenses</a></h2>
 <div class="cardy">
 			<h2 align="center" class="page-header">Login</h2>
 			<form method="post" action="/LoginApp/staff.php">

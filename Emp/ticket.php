@@ -1,6 +1,6 @@
 <?php
 session_start();
-  $db = mysqli_connect("localhost", "root", "root", "loginapp",8889) or die ("Failed to connect");
+  include_once('connection.php');
 if (isset($_SESSION['username'])){
   $username = $_SESSION['username'];
 }
@@ -76,7 +76,10 @@ else {
             <ul  class="thumbnails"></ul>
         </div>
       <input style="visibility: hidden;" id="x" name="id"><br>
-      <input style="text" name="ticket">
+      <div class="form-group">
+            <label>Ticket</label>
+           <input type="text" class="form-control" name="ticket" placeholder="Enter Ticket">
+      </div>
       <a class="btn btn-default" href="javascript: openQRCamera()">
       Raise Ticket
       </a>      
