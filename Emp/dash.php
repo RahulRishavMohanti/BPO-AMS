@@ -1,8 +1,12 @@
 <?php
 session_start();
   include_once('connection.php');
-if (isset($_SESSION['username'])){
-  $username = $_SESSION['username'];
+if (isset($_SESSION['empname'])){
+  $username = $_SESSION['empname'];
+  $query = "SELECT * FROM itemList";
+  $query2 = "SELECT * FROM locationList";
+  $result1 = mysqli_query($db,$query);
+  $result2 = mysqli_query($db,$query2);
 }
 else {
   header('Location: empLogin.php');
@@ -90,21 +94,23 @@ if($_POST['submit']) {
           <div class="form-group">
             <label for="ItemType">Item Type</label>
             <select class="form-control" name="ItemType">
-              <option>Chair</option>
-              <option>Table</option>
-              <option>PC</option>
-              <option>Generator</option>
-              <option>Printer</option>
+              <?php
+              while($row = mysqli_fetch_array($result1))
+              {
+                echo "<option>".$row[0]."</option>";
+              }
+            ?>
             </select>
           </div>
           <div class="form-group">
             <label for="Location">Location</label>
             <select class="form-control" name="Location">
-              <option>Bhubaneswar-1</option>
-              <option>Bhubaneswar-2</option>
-              <option>Delhi</option>
-              <option>Kolkata</option>
-              <option>Lucknow</option>
+              <?php
+              while($row = mysqli_fetch_array($result2))
+              {
+                echo "<option>".$row[0]."</option>";
+              }
+            ?>
             </select>
           </div>
           <div class="form-group">

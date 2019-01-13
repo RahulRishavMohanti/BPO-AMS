@@ -1,8 +1,8 @@
 <?php
 session_start();
   include_once('connection.php');
-if (isset($_SESSION['username'])){
-  $username = $_SESSION['username'];
+if (isset($_SESSION['empname'])){
+  $username = $_SESSION['empname'];
 }
 else {
   header('Location: empLogin.php');
@@ -63,7 +63,7 @@ else {
       <img style="float: left;" height="50" src="/LoginApp/public/logo.jpg">
     </div>
     <div class="container">
-      <h2 class="page-header"><a class="text-muted" href="/LoginApp/Emp/dash.php">new</a> <a class="text-muted" href="/LoginApp/Emp/update.php">update</a><a class="text-muted" href="/LoginApp/Emp/delete.php"> delete</a><a class="text-muted" href="/LoginApp/Emp/ticket.php"> ticket </a> expense</h2>
+      <h2 class="page-header"><a class="text-muted" href="/LoginApp/Emp/dash.php">new</a> <a class="text-muted" href="/LoginApp/Emp/update.php">update</a> <a class="text-muted" href="/LoginApp/Emp/delete.php">delete</a> <a class="text-muted" href="/LoginApp/Emp/ticket.php">ticket</a> expense</h2>
       <div class="cardy">
           
       <form name="myform" method="post" id="f1" action="/LoginApp/Emp/expense.php">
@@ -80,7 +80,7 @@ else {
     <div class="table-wrapper">
 
 <?php 
-$id = $_SESSION['username'];
+$id = $_SESSION['empname'];
 if(($_POST['expense']) && ($_POST['amount']))
 {
 
@@ -88,7 +88,9 @@ if(($_POST['expense']) && ($_POST['amount']))
   $amount =  strip_tags($_POST['amount']);
   $status = "Pending";
   $expenseID = uniqid();
-  $sql="INSERT INTO Expenses(id,expenseID,expense,amt,status) VALUES ('$id','$expenseID','$expense','$amount','$status')";
+  $loc = $_SESSION['loc'];
+  $re = "blank";
+  $sql="INSERT INTO Expenses(id,expenseID,expense,amt,status,location,remark) VALUES ('$id','$expenseID','$expense','$amount','$status','$loc','$re')";
 
   $result = mysqli_query($db, $sql);
  }
@@ -103,6 +105,8 @@ if(($_POST['expense']) && ($_POST['amount']))
   <tr>
 
   <th>Employee</th>
+
+  <th>Location</th>
 
   <th>Expense</th>
 
@@ -120,6 +124,9 @@ if(($_POST['expense']) && ($_POST['amount']))
     echo "<tr>";
 
     echo "<td>" . $row[0] . "</td>";
+    
+    echo "<td>" . $row[5] . "</td>";
+    
 
     echo "<td>" . $row[2] . "</td>";
 

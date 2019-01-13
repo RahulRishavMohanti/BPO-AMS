@@ -1,9 +1,7 @@
 td,th{
   text-align: center;
 }
-a{
-  cursor: pointer;
-}
+
   .container{
     width:90%;
     position: absolute;

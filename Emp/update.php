@@ -1,8 +1,8 @@
 <?php
 session_start();
   include_once('connection.php');
-if (isset($_SESSION['username'])){
-  $username = $_SESSION['username'];
+if (isset($_SESSION['empname'])){
+  $username = $_SESSION['empname'];
 }
 else {
   header('Location: empLogin.php');

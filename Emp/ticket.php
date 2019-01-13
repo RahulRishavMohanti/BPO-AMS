@@ -1,8 +1,8 @@
 <?php
 session_start();
   include_once('connection.php');
-if (isset($_SESSION['username'])){
-  $username = $_SESSION['username'];
+if (isset($_SESSION['empname'])){
+  $username = $_SESSION['empname'];
 }
 else {
   header('Location: empLogin.php');
@@ -21,6 +21,9 @@ else {
     <style type="text/css">
       td,th{
         text-align: center;
+      }
+      a{
+        color: black;
       }
       .cardy{
         margin-bottom: 10%;
@@ -87,16 +90,19 @@ else {
     <div class="table-wrapper">
 
 <?php 
+  $empID = $_SESSION['empname'];
 if(($_POST['id']) && ($_POST['ticket']))
 {
   $idItem = strip_tags($_POST['id']);
   $ticket = strip_tags($_POST['ticket']);
+  $stat = "Unresolved";
+  $ticketid = uniqid();
 
-  $sql="INSERT INTO Ticket(id,ticket) VALUES ('$idItem','$ticket')";
+  $sql="INSERT INTO Ticket(id,empid,ticketid,ticket,Status) VALUES ('$idItem','$empID','$ticketid','$ticket','$stat')";
 
   $result = mysqli_query($db, $sql);
 }
-  $sql="SELECT * FROM Ticket WHERE id='$idItem'";
+  $sql="SELECT * FROM Ticket WHERE empid='$empID'";
 
   $result = mysqli_query($db, $sql);
 
@@ -106,9 +112,11 @@ if(($_POST['id']) && ($_POST['ticket']))
 
   <tr>
 
-  <th>ID</th>
+  <th>Item ID</th>
 
   <th>Ticket</th>
+  <th>Status</th>
+
   </tr>
   </thead>";
 
@@ -121,7 +129,9 @@ if(($_POST['id']) && ($_POST['ticket']))
 
     echo "<td>" . $row[0] . "</td>";
 
-    echo "<td>" . $row[1] . "</td>";
+    echo "<td>" . $row[3] . "</td>";
+
+    echo "<td id=\"$row[2]\"><a onClick=resolveTicket(\"$row[2]\")>" . $row[4] . "</td>";
 
     echo "</tr>";
 
@@ -147,7 +157,27 @@ if(($_POST['id']) && ($_POST['ticket']))
 <script src="quagga.js" type="text/javascript"></script>
 <script src="file_input.js" type="text/javascript"></script>
   <script type="text/javascript">
-
+  function resolveTicket(str)
+  {
+    console.log(str);
+  //document.getElementById(str).innerHTML="assa";
+  var xhttp;
+  if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+            console.log("XMLHttpRequest Done");
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById(str).innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","approve.php?q="+str,true);
+        xmlhttp.send();
+  }
   function openQRCamera() {
 if(document.myform.onsubmit && !document.myform.onsubmit())
           {

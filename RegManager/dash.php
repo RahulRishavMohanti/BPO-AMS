@@ -1,8 +1,8 @@
 <?php
 session_start();
   include_once('connection.php');
-if (isset($_SESSION['username'])){
-  $username = $_SESSION['username'];
+if (isset($_SESSION['manager'])){
+  $manager = $_SESSION['manager'];
 
 }
 else {
@@ -17,8 +17,8 @@ else {
 
 <head>
   <title>PHP-SQL Login</title>
-  <link rel="stylesheet" href="public/css/bootstrap.css" />
-  <link rel="stylesheet" href="public/css/style2.css" />
+  <link rel="stylesheet" href="/LoginApp/public/css/bootstrap.css" />
+  <link rel="stylesheet" href="/LoginApp/public/css/style2.css" />
 <style type="text/css">
 table{
       table-layout: fixed;
@@ -58,20 +58,20 @@ td,th{
   <div class="headery">
     <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="/LoginApp/logout.php">Logout</a></li>
+            <li role="presentation"><a href="logout.php">Logout</a></li>
           </ul>
     </nav>
     <img style="float: left;" height="50" src="/LoginApp/public/logo.jpg">
     </div>
 <div class="container">
-<h2 class="page-header">Assets <a class="text-muted" href="/LoginApp/ticket.php">Ticket</a><a class="text-muted" href="/LoginApp/expenses.php"> Expenses</a> <a class="text-muted" href="/LoginApp/itemlocation.php">item&location</a></h2> 
+<h2 class="page-header">Assets <a class="text-muted" href="ticket.php">Ticket</a><a class="text-muted" href="expenses.php"> Expenses</a></h2>
 <div class="cardy">
 <input class="SearchBar" type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in an Item Name">
 <div class="table-wrapper">
 
 <?php 
-
-$sql="SELECT * FROM Items ORDER BY  STATUS DESC";
+$loc=$_SESSION['managerLocation'];
+$sql="SELECT * FROM Items where Location='$loc' ORDER BY  STATUS DESC";
 
 $result = mysqli_query($db, $sql);
 

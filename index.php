@@ -57,10 +57,6 @@ body{
 <body>
 	<div class="headery">
 		<nav>
-	        <ul class="nav nav-pills pull-right">
-	        	<li role="presentation"><a href="/LoginApp/index1.php">Login</a></li>
-	        	<li role="presentation"><a href="register.php">Register</a></li>
-			</ul>
 	    </nav>
 	    <img height="50" src="/LoginApp/public/logo.jpg">
     </div>
@@ -77,8 +73,9 @@ body{
     	</div>
 		<div class="cardy">
 			<h2 align="center" class="page-header">Select Login</h2>
-			<a style="width:49%;" class="btn btn-primary btn-large" href ="Emp/empLogin.php"> Employee Login</a>
-			<a style="width:49%; float: right;" class="btn btn-primary btn-large" href ="index1.php"> Manager Login</a>
+			<a style="width:33%;" class="btn btn-primary btn-large" href ="Emp/empLogin.php"> Employee Login</a>
+			<a style="width:30%;" class="btn btn-primary btn-large" href ="index1.php"> Manager Login</a>
+      <a style="width:33%;" class="btn btn-primary btn-large" href ="RegManager/index1.php"> Regional Login</a>
 		</div>
 	</div>
     <div class="footer">

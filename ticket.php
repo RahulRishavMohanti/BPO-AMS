@@ -64,14 +64,14 @@ td,th{
     <img style="float: left;" height="50" src="/LoginApp/public/logo.jpg">
     </div>
 <div class="container">
-<h2 class="page-header">Assets <a class="text-muted" href="/LoginApp/ticket.php">Ticket</a><a class="text-muted" href="/LoginApp/expenses.php"> Expenses</a> <a class="text-muted" href="/LoginApp/itemlocation.php">item&location</a></h2> 
+<h2 class="page-header"><a class="text-muted" href="/LoginApp/dash.php">Assets</a> Ticket <a class="text-muted" href="/LoginApp/expenses.php"> Expenses</a> <a class="text-muted" href="/LoginApp/itemlocation.php">item&location</a></h2>
 <div class="cardy">
 <input class="SearchBar" type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in an Item Name">
 <div class="table-wrapper">
 
 <?php 
 
-$sql="SELECT * FROM Items ORDER BY  STATUS DESC";
+$sql="SELECT * FROM Ticket ORDER BY  STATUS DESC";
 
 $result = mysqli_query($db, $sql);
 
@@ -81,13 +81,9 @@ echo "<table id='itemTable' class='table table-hover'>
 
 <tr>
 
-<th>Type</th>
+<th>Item ID</th>
 
-<th>Id</th>
-
-<th>Location</th>
-
-<th>Date</th>
+<th>Ticket</th>
 
 <th>Status</th>
 
@@ -103,20 +99,13 @@ while($row = mysqli_fetch_array($result))
 
   echo "<td>" . $row[0] . "</td>";
 
-  echo "<td>" . $row[1] . "</td>";
-
   echo "<td>" . $row[2] . "</td>";
 
-  echo "<td>" . $row[3] . "</td>";
-  if(!(strcmp($row[4],"Maintenance")))
+  if(!(strcmp($row[3],"Unresolved")))
   {
     echo "<td class=maintenance_td>" . $row[4] ."</td>";
   }
-  else if(!(strcmp($row[4],"Inactive")))
-  {
-    echo "<td class=inactive_td>" . $row[4] ."</td>";
-  }
-  else
+    else
   {
     echo "<td class=active_td>" . $row[4] . "</td>";
   }
@@ -135,6 +124,8 @@ mysqli_close($con);
 
 </div>
 </div>
+
+
       <footer class="footer">
         <p>&copy; BPO Convergence Ltd.</p>
       </footer>

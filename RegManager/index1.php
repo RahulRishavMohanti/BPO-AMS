@@ -2,29 +2,28 @@
 session_start();
 
 if($_POST['submit']) {
-	//include_once('/LoginApp/connection.php');
-  include_once('connection.php');
-
-	$empname = strip_tags($_POST['username']);
+	include_once('connection.php');
+	$username = strip_tags($_POST['username']);
 	$password = strip_tags($_POST['password']);
 	$password = md5($password);
 
-	$sql = "SELECT * FROM Employees where UserName = '$empname' LIMIT 1";
+	$sql = "SELECT UserName,Password,Location FROM regManagers where UserName = '$username' LIMIT 1";
 	$query = mysqli_query($db, $sql);
 	if($query) {
 		$row = mysqli_fetch_row($query);
 		$dbUserName = $row[0];
 		$dbPassword = $row[1];
-		$location = $row[2];
+		$dbLocation = $row[2];
 	}
-	if($empname == $dbUserName && $password == $dbPassword) {
-		$_SESSION['empname'] = $empname;
-		$_SESSION['loc'] = $location;
-		header('Location: /LoginApp/Emp/dash.php');
-
+//	echo "$dbUserName $dbPassword";
+	if($username == $dbUserName && $password == $dbPassword) {
+		$_SESSION['manager'] = $username;
+		$_SESSION['managerLocation'] = $dbLocation;
+		header('Location: dash.php');
 	}
 	else {
 		$errorm = "Incorrect Credentials";
+		//echo "<div class='col-lg-12'><div class='alert alert-danger'>Incorrect credentials</div></div>";
 	}
 
 }
@@ -56,14 +55,15 @@ body{
      left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0px 0px 0px ;
-    margin-top: 5%;
+  margin-top: 5%;
     margin-bottom: : 5%;
 
+  box-shadow: 0px 0px 0px ;
   }
   .page-header{
   	margin: 0;
   }
+
 
   .cardy{
     max-width:500px;
@@ -101,7 +101,8 @@ body{
 	<div class="headery">
 		<nav>
 	        <ul class="nav nav-pills pull-right">
-	        	<li role="presentation"><a href="/LoginApp/Emp/empLogin.php">Login</a></li>
+	        	<li role="presentation"><a href="/LoginApp/index1.php">Login</a></li>
+	        	<li role="presentation"><a href="register.php">Register</a></li>
 			</ul>
 	    </nav>
 	    <img height="50" src="/LoginApp/public/logo.jpg">
@@ -119,7 +120,7 @@ body{
     	</div>
 		<div class="cardy">
 			<h2 align="center" class="page-header">Login</h2>
-			<form method="post" action="/LoginApp/Emp/empLogin.php">
+			<form method="post" action="index1.php">
 		  		<div class="form-group">
 		  	    	<label>Username</label>
 					<input type="text" class="form-control" name = "username" placeholder="Enter username">
