@@ -41,7 +41,7 @@ else if($_SESSION['success'])
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
-	<title>PHP-SQL Login</title>
+	<title>Asset Management System</title>
 	<link rel="stylesheet" href="/LoginApp/public/css/bootstrap.css" />
 	<link rel="stylesheet" href="/LoginApp/public/css/style2.css" />
 <style>
@@ -105,7 +105,7 @@ body{
 	        	<li role="presentation"><a href="register.php">Register</a></li>
 			</ul>
 	    </nav>
-	    <img height="50" src="/LoginApp/public/logo.jpg">
+	    <a href="/LoginApp/index.php"><img height="50" src="/LoginApp/public/logo.jpg"></a>
     </div>
 	<div class="container">
     	<div class="row">
@@ -119,7 +119,7 @@ body{
         	</div>
     	</div>
 		<div class="cardy">
-			<h2 align="center" class="page-header">Login</h2>
+			<h2 align="center" class="page-header">Regional Admin Login</h2>
 			<form method="post" action="index1.php">
 		  		<div class="form-group">
 		  	    	<label>Username</label>

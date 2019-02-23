@@ -16,7 +16,7 @@ else {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head>
-  <title>PHP-SQL Login</title>
+  <title>Asset Management System</title>
   <link rel="stylesheet" href="public/css/bootstrap.css" />
   <link rel="stylesheet" href="public/css/style2.css" />
 <style type="text/css">
@@ -159,7 +159,7 @@ td,th{
   <img class="modal-content" id="img01">
   <div id="caption"></div>
 </div>
-<h2 class="page-header"><a class="text-muted" href="/LoginApp/dash.php">Assets </a><a class="text-muted" href="/LoginApp/ticket.php"> Ticket</a> Expenses <a class="text-muted" href="/LoginApp/itemlocation.php">item&location</a></h2>
+<h2 class="page-header"><a class="text-muted" href="/LoginApp/dash.php">Assets </a><a class="text-muted" href="/LoginApp/ticket.php"> Ticket</a> Expenses <a class="text-muted" href="/LoginApp/Itemlocation.php">item&location</a></h2>
 <div class="cardy">
 <input class="SearchBar" type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in an Item Name">
 <div class="table-wrapper">
@@ -266,7 +266,7 @@ function approveExpense(str) {
 var modal = document.getElementById('myModal');
 
 // Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = "/LoginApp/RegManager/uploads/"+str;
+var img = "/LoginApp/Emp/uploads/"+str;
 console.log(img);
 var modalImg = document.getElementById("img01");
   modal.style.display = "block";

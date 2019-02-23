@@ -1,0 +1,19 @@
+<?
+$data = array("Age"=>"1", "Pay Rate"=>"1", "Zip"=>"1", "Sex"=>"1", "MaritalDesc"=>"Divorced", "CitizenDesc"=>"US Citizen",
+       "Hispanic/Latino"=>"1", "RaceDesc"=>"White", "Date of Hire"=>"2/16/2015", "Days Employed"=>1056,
+       "Date of Termination"=9/25/2013>, "Employment Status"=>"1", "Department"=>"1", "Position"=>"Accountant",
+       "Manager Name"=>"Brandon R. LeBlanc", "Employee Source"=>"Diversity Job Fair", "Performance Score":"1"});                                                                    
+$data_string = json_encode($data);                                                                                   
+                                                                                                                     
+$ch = curl_init('http://0.0.0.0:3000/predict');                                                                      
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+    'Content-Type: application/json',                                                                                
+    'Content-Length: ' . strlen($data_string))                                                                       
+);                                                                                                                   
+                                                                                                                     
+$result = curl_exec($ch);
+echo($result);
+?>

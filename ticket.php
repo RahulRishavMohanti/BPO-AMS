@@ -16,7 +16,7 @@ else {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head>
-  <title>PHP-SQL Login</title>
+  <title>Asset Management System</title>
   <link rel="stylesheet" href="public/css/bootstrap.css" />
   <link rel="stylesheet" href="public/css/style2.css" />
 <style type="text/css">

@@ -15,7 +15,7 @@ else {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <head>
-    <title>PHP-SQL Login</title>
+  <title>Asset Management System</title>
     <link rel="stylesheet" href="/LoginApp/public/css/bootstrap.css" />
     <link rel="stylesheet" href="/LoginApp/public/css/style2.css" />
     <style type="text/css">
@@ -66,34 +66,61 @@ else {
       <h2 class="page-header"><a class="text-muted" href="/LoginApp/Emp/dash.php">new</a> <a class="text-muted" href="/LoginApp/Emp/update.php">update</a> <a class="text-muted" href="/LoginApp/Emp/delete.php">delete</a> <a class="text-muted" href="/LoginApp/Emp/ticket.php">ticket</a> expense</h2>
       <div class="cardy">
           
-      <form name="myform" method="post" id="f1" action="/LoginApp/Emp/expense.php">
-      <div class="form-group">
-              <label>Expense</label>
-          <input type="text" class="form-control" name="expense" placeholder="Enter Expense">
-        </div>
-        <div class="form-group">
-            <label>Amount</label>
-           <input type="number" class="form-control" name="amount" step="0.01" placeholder="Enter Amount">
-        </div>
-        <button name="submit" type="submit" class="btn btn-default" value="submit">Submit</button>
-    </form>
+      <form name="myform" method="post" id="f1" action="/LoginApp/Emp/expense.php" enctype="multipart/form-data">
+	      <div class="form-group">
+	              <label>Expense</label>
+	          <input type="text" class="form-control" name="expense" placeholder="Enter Expense">
+	        </div>
+	        <div class="form-group">
+	            <label>Amount</label>
+	           <input type="number" class="form-control" name="amount" step="0.01" placeholder="Enter Amount">
+	        </div>
+	        <div class="form-group">
+	            <label>Reciept</label>
+	          <input type="file" class="form-control" id="uploadImage" accept="image/*" name="image">
+	        </div>
+	        <button name="submit" type="submit" class="btn btn-default" value="submit">Submit</button>
+    	</form>
     <div class="table-wrapper">
 
 <?php 
 $id = $_SESSION['empname'];
+$valid_extensions = array('jpeg', 'jpg', 'png', 'gif', 'bmp' , 'pdf' , 'doc' , 'ppt'); // valid extensions
+$path = 'uploads/'; // upload directory
+$expenseID = uniqid();
+
 if(($_POST['expense']) && ($_POST['amount']))
 {
 
-  $expense = strip_tags($_POST['expense']);
-  $amount =  strip_tags($_POST['amount']);
-  $status = "Pending";
-  $expenseID = uniqid();
-  $loc = $_SESSION['loc'];
-  $re = "blank";
-  $sql="INSERT INTO Expenses(id,expenseID,expense,amt,status,location,remark) VALUES ('$id','$expenseID','$expense','$amount','$status','$loc','$re')";
+	$img = $_FILES['image']['name'];
+	$tmp = $_FILES['image']['tmp_name'];
+	 
+	// get uploaded file's extension
+	$ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
 
-  $result = mysqli_query($db, $sql);
- }
+	//can upload same image using rand function
+	$final_image = $expenseID;
+	 
+	// check's valid format
+
+	if(in_array($ext, $valid_extensions)) 
+	{
+
+	$path = $path.strtolower($expenseID);
+
+	move_uploaded_file($tmp,$path);
+	}
+  	$expense = strip_tags($_POST['expense']);
+	$amount =  strip_tags($_POST['amount']);
+	$status = "Pending";
+	$loc = $_SESSION['loc'];
+	$re = "blank";
+	$sql="INSERT INTO Expenses(id,expenseID,expense,amt,status,location,remark) VALUES ('$id','$expenseID','$expense','$amount','$status','$loc','$re')";
+
+	$result = mysqli_query($db, $sql);
+}
+	
+
   $sql="SELECT * FROM Expenses WHERE id='$id'";
 
   $result = mysqli_query($db, $sql);

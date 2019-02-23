@@ -2,7 +2,7 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
-	<title>PHP-SQL Login</title>
+	<title>Asset Management System</title>
 	<link rel="stylesheet" href="public/css/bootstrap.css" />
 	<link rel="stylesheet" href="public/css/style2.css" />
 <style>
@@ -74,7 +74,7 @@ body{
 		<div class="cardy">
 			<h2 align="center" class="page-header">Select Login</h2>
 			<a style="width:33%;" class="btn btn-primary btn-large" href ="Emp/empLogin.php"> Employee Login</a>
-			<a style="width:30%;" class="btn btn-primary btn-large" href ="index1.php"> Manager Login</a>
+			<a style="width:30%;" class="btn btn-primary btn-large" href ="index1.php"> Central Login</a>
       <a style="width:33%;" class="btn btn-primary btn-large" href ="RegManager/index1.php"> Regional Login</a>
 		</div>
 	</div>

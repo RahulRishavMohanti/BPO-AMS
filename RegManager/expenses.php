@@ -16,7 +16,7 @@ else {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head>
-  <title>PHP-SQL Login</title>
+  <title>Asset Management System</title>
   <link rel="stylesheet" href="/LoginApp/public/css/bootstrap.css" />
   <link rel="stylesheet" href="/LoginApp/public/css/style2.css" />
 <style type="text/css">
@@ -54,6 +54,92 @@ td,th{
   background: transparent;
   border-bottom: 1px solid black;
 }
+
+#myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: absolute; /* Stay in place */
+  z-index: 5; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {  
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)} 
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
 </style>
 
 </head>
@@ -68,6 +154,11 @@ td,th{
     <img style="float: left;" height="50" src="/LoginApp/public/logo.jpg">
     </div>
 <div class="container">
+  <div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
 <h2 class="page-header"><a class="text-muted" href="dash.php">Assets </a><a class="text-muted" href="ticket.php"> Ticket</a> Expenses</h2>
 <div class="cardy">
 <input class="SearchBar" type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in an Item Name">
@@ -115,15 +206,14 @@ while($row = mysqli_fetch_array($result))
   }
   else
   {
-    echo "<td  id=\"$row[1]\" class=active_td><a onClick=approveExpense(\"$row[1]\")>" . $row[4] . "<a></td>";
+    echo "<td  id=\"$row[1]\" class=active_td>" . $row[4] . "<a></td>";
   }
   $formID = $row[1]."form";
   echo "<td  style=display:none><form class=form id=\"$formID\" action=recieptUpload.php method=POST enctype=multipart/form-data>
   Remark:<input type=text name=remark>
-  <input type=file id=uploadImage accept=image/* name=image>
   <input type=text style=display:none name=expenseID value=\"".$row[1]."\">
 
-  <input type=submit id=upload-button value=\"Upload Reciept\"></form></td>";
+  <input type=submit id=upload-button value=\"Approve Expense\"></form></td>";
 
   echo "</tr>";
 
@@ -222,6 +312,22 @@ function approveExpense(str) {
   //str1 = str+"."+remark;
   document.getElementById(str).nextSibling.style.display = "block";
   document.getElementById(str).style.display = "none";
+  var modal = document.getElementById('myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = "/LoginApp/Emp/uploads/"+str;
+console.log(img);
+var modalImg = document.getElementById("img01");
+  modal.style.display = "block";
+  modalImg.src = img;
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+  modal.style.display = "none";
+}
 }
 </script>
 
