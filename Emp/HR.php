@@ -22,7 +22,7 @@ $data = array(array("Age"=>1, "Pay Rate"=>1, "Zip"=>1, "Sex"=>1, "MaritalDesc"=>
 $data_string = json_encode($data);     
 //$data_string = json_encode($data_string);
 echo($data_string);                                                                            
-$ch = curl_init('http://0.0.0.0:3000/predict');                                                                      
+$ch = curl_init('http://0.0.0.0:5000/predict');                                                                      
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
@@ -44,7 +44,7 @@ if($result)
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head>
-	<title>PHP-SQL Login</title>
+	<title>Employee Perf</title>
 	<link rel="stylesheet" href="/LoginApp/public/css/bootstrap.css" />
 	<link rel="stylesheet" href="/LoginApp/public/css/style2.css" />
 <style type="text/css">
@@ -76,9 +76,8 @@ td,th{
     </div>
 
 <div class="container">
-<h2  class="page-header">Staff</h2>
+<h2  class="page-header">Check</h2>
 <div class="cardy">
-			<h2 align="center" class="page-header">Login</h2>
 			<form method="post" action="/LoginApp/Emp/HR.php">
 		  		<div class="form-group">
 		  	    	<label>Marital Description</label>
@@ -197,7 +196,7 @@ td,th{
 						<option value="2016">2016</option>
 					</select>
 				</div>
-				<input type="submit" name="submit" value="Register">
+				<input type="submit" name="submit" value="Predict">
 			</form>
 			<h2>
 				<?php 
